@@ -7,10 +7,10 @@
     "dev": "bunx --bun vite",
     "build": "bunx --bun vite build",
     "lint": "eslint .",
-    "preview": "bunx --bun vite preview"
+    "preview": "bunx --bun vite preview",
+    "deploy": "bun run build && bunx gh-pages -d dist"
   },
   "dependencies": {
-    "gh-pages": "^6.3.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2"
