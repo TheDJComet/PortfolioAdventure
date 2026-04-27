@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+:root {
+  /* NES-accurate palette */
+  --nes-black:    #000000;
+  --nes-darkgray: #252525;
+  --nes-gray:     #525252;
+  --nes-white:    #b4b4b4;
+  --nes-tan:      #d4b46a;
+  --nes-brown:    #6b3a00;
+  --nes-darkbrown:#3a1e00;
+  --nes-amber:    #d89000;
+  --nes-yellow:   #f8d800;
+  --nes-green:    #007800;
+  --nes-ltgreen:  #50b878;
+  --nes-red:      #880000;
+  --nes-ltred:    #d82800;
+  --nes-blue:     #0000b8;
+  --nes-ltblue:   #6888f8;
+
+  /* Semantic aliases */
+  --bg:           var(--nes-black);
+  --bg-panel:     var(--nes-darkgray);
+  --border:       var(--nes-tan);
+  --border-dim:   var(--nes-brown);
+  --text:         var(--nes-tan);
+  --text-dim:     var(--nes-gray);
+  --text-bright:  var(--nes-yellow);
+  --accent:       var(--nes-amber);
+  --accent-bright:var(--nes-yellow);
+  --shadow:       rgba(216,144,0,0.35);
+
+  --font-pixel:   'Press Start 2P', monospace;
+  --font-body:    'Crimson Text', serif;
+}
+
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--nes-black);
+  color: var(--text);
+  font-family: var(--font-pixel);
+  min-height: 100vh;
+  overflow-x: hidden;
+  image-rendering: pixelated;
+}
+
+/* CRT scanlines overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.18) 0px,
+    rgba(0,0,0,0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* CRT vignette */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--nes-black); }
+::-webkit-scrollbar-thumb { background: var(--nes-brown); }
+
+/* Animations */
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes flicker { 0%,100%{opacity:1} 47%{opacity:.92} 48%{opacity:.7} 49%{opacity:.92} 87%{opacity:1} 88%{opacity:.85} 89%{opacity:1} }
+@keyframes pageIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes scanroll { from{background-position:0 0} to{background-position:0 100%} }
+@keyframes marquee { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+@keyframes pixelPulse { 0%,100%{box-shadow:0 0 0 2px var(--accent)} 50%{box-shadow:0 0 0 4px var(--accent),0 0 12px var(--shadow)} }
+@keyframes walkRight { 0%{transform:translateX(0)} 100%{transform:translateX(4px)} }
+
+.page-enter { animation: pageIn 0.4s ease forwards; }
